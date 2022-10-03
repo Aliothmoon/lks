@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pers.hyy.bookshop.dao.UserMapper">
+    <!--    ResultMap设置避免null-->
+    <resultMap id="ResultMap" type="User">
+        <result column="username" property="username"/>
+    </resultMap>
+    <insert id="insertUser">
+        insert into user (username, password) values (#{username},#{password});
+    </insert>
+    <update id="updatePassword">
+        update user set password=#{password} where username=#{name};
+    </update>
+
+    <select id="login" resultType="pers.hyy.bookshop.entity.User">
+        select *
+        from user
+        where username = #{username}
+          and password = #{password};
+    </select>
+    <select id="searchByUser" resultType="pers.hyy.bookshop.entity.User">
+        select * from user where password=#{password} and user.username=#{username};
+    </select>
+
+    <select id="searchByUsername" resultType="pers.hyy.bookshop.entity.User">
+        select * from user where username=#{username};
+    </select>
+
+
+</mapper>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+</head>
+<body>
+
+    <p th:if="${msg eq null}">
+        <h1 th:text="${name}"></h1>
+        <h1 th:text="${password}"></h1>
+    </p>
+    <p th:if="${msg ne null}">
+        <h1 th:text="${msg}"></h1>
+
+    </p>
+
+
+<!--        <table align="center" bgcolor="white" border="2px">-->
+<!--            <tr th:each="item:${users}" th:object="${item}">-->
+<!--                    <td th:text="${item.username}"></td>-->
+<!--                    <td th:text="${item.password}"></td>-->
+<!--            </tr>-->
+<!--        </table>-->
+
+
+</body>
+</html>

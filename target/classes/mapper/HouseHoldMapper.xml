@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pers.hyy.bookshop.dao.HouseHoldMapper">
+    <!--    ResultMap设置避免null-->
+    <resultMap id="ResultMap" type="User">
+        <result column="username" property="username"/>
+    </resultMap>
+    <insert id="insertHold">
+        insert into household(name, address, email, phone, status)
+        values (#{name}, #{address}, #{email}, #{phone}, #{status});
+    </insert>
+    <update id="updateHold">
+        update household
+        set name=#{item.name},
+            address=#{item.address},
+            email=#{item.email},
+            phone=#{item.phone},
+            status=#{item.status}
+        where keyId = #{key};
+    </update>
+    <delete id="delById">
+        delete from household
+        <where>
+            keyid in
+            <foreach collection="list" index="index" open="(" separator="," close=")" item="id">
+                #{id}
+            </foreach>
+        </where>
+
+    </delete>
+
+    <select id="login" resultType="pers.hyy.bookshop.entity.User">
+        select *
+        from user
+        where username = #{username}
+          and password = #{password};
+    </select>
+    <select id="searchAll" resultType="pers.hyy.bookshop.entity.HouseHold">
+        select *
+        from household
+    </select>
+    <select id="getTotalNums" resultType="java.lang.Integer">
+        select count(*)
+        from household;
+    </select>
+    <select id="selectByModel" resultType="java.lang.Integer">
+        select keyid
+        from household
+        where name = #{name}
+          and address = #{address};
+    </select>
+    <select id="selectById" resultType="pers.hyy.bookshop.entity.HouseHold">
+        select *
+        from household
+        where keyid = #{keyid};
+    </select>
+    <select id="selectByNames" resultType="pers.hyy.bookshop.entity.HouseHold">
+        select *
+        from household
+        where name like concat('%', #{name}, '%');
+    </select>
+    <select id="selectByAddress" resultType="pers.hyy.bookshop.entity.HouseHold">
+        select *
+        from household
+        where household.address like concat('%', #{address}, '%');
+    </select>
+    <select id="selectByEmail" resultType="pers.hyy.bookshop.entity.HouseHold">
+        select *
+        from household
+        where household.email like concat('%', #{email}, '%');
+    </select>
+    <select id="selectByPhone" resultType="pers.hyy.bookshop.entity.HouseHold">
+        select *
+        from household
+        where phone like concat('%', #{phone}, '%');
+    </select>
+    <select id="selectByFuzzy" resultType="pers.hyy.bookshop.entity.HouseHold">
+        select *
+        from household
+        where household.name like concat('%', #{st}, '%')
+           or household.address like concat('%', #{st}, '%')
+           or household.phone like concat('%', #{st}, '%')
+           or household.email like concat('%', #{st}, '%');
+    </select>
+
+
+</mapper>
